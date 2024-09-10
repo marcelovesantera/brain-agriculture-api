@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { ProdutoresModule } from './produtores/produtores.module';
 import { DataSource } from 'typeorm';
+import { SeederService } from './seeders/seeder.service';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { DataSource } from 'typeorm';
     ProdutoresModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SeederService],
 })
 export class AppModule implements OnModuleInit {
   constructor(private dataSource: DataSource) {}

@@ -59,9 +59,17 @@ export class SeederService implements OnModuleInit {
     ];
 
     for (const produtorData of produtores) {
-      const produtorDto = produtorData as CreateProdutorDto;
-      await this.produtoresService.create(produtorDto);
-      console.log(`Created ${produtorDto.nomeFazenda}`);
+      const exists = await this.produtoresService.findOneByCpfCnpj(
+        produtorData.cpfCnpj,
+      );
+
+      if (!exists) {
+        const produtorDto = produtorData as CreateProdutorDto;
+        await this.produtoresService.create(produtorDto);
+        console.log(`Created ${produtorDto.nomeFazenda}`);
+      } else {
+        console.log(`Skipped ${produtorData.nomeFazenda}, already exists.`);
+      }
     }
   }
 }

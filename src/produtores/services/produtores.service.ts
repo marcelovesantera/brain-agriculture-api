@@ -92,4 +92,8 @@ export class ProdutoresService {
       totalAgricultavelPorVegetacao,
     };
   }
+
+  async findOneByCpfCnpj(cpfCnpj: string): Promise<Produtor | undefined> {
+    return this.produtorRepository.findOne({ where: { cpfCnpj } });
+  }
 }
